@@ -1,5 +1,5 @@
 USE noshowguard;
-DROP TABLE IF EXISTS appointmemts;
+DROP TABLE IF EXISTS appointments;
 DROP TABLE IF EXISTS clinics;
 
 SHOW TABLES;
@@ -18,7 +18,7 @@ SELECT (SELECT COUNT(*) FROM clinics) AS clinics,COUNT(*) AS appointments,SUM(no
 FROM appointments;
 
 -- duplicate insert
-INSERT INTO appointments VALUES('A001','P1','C01','2025-01-01','2025-01-05',30,'F',5.0,500,'app','consultation','yes',0,'attended',4,0);
+INSERT INTO appointments VALUES('A0001','P1','C01','2025-01-01','2025-01-05',30,'F',5.0,500,'App','Consultation','Yes',0,'Attended',4,0);
 
 -- TASK 2.2
 SELECT c.clinic_name,c.city,COUNT(*) AS appointments, SUM(a.no_show) AS no_shows,ROUND(100.0*SUM(a.no_show)/COUNT(*),1) AS no_show_pct
@@ -59,7 +59,7 @@ WITH monthly AS (
                   )
                   
                   SELECT month,appointments,no_show_pct,
-                        ROUND (no_show_pct-LAG(no_show_pct)
+                        ROUND(no_show_pct-LAG(no_show_pct)
                         OVER(ORDER BY month),1) AS change_pp  
                         FROM monthly
                         ORDER BY month;
