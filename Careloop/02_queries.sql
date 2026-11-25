@@ -1,3 +1,8 @@
+-- HOW TO RUN (in this order):
+-- 1) run the DROP TABLE and CREATE TABLE lines below (this leaves the tables empty)
+-- 2) run load_data.sql (8 clinic INSERTs, then 990 appointment INSERTs)
+-- 3) run each TASK section below, one at a time
+-- NOTE: the duplicate INSERT in Task 2.1 fails on purpose (Error 1062), so run it on its own.
 USE noshowguard;
 DROP TABLE IF EXISTS appointments;
 DROP TABLE IF EXISTS clinics;
@@ -13,10 +18,7 @@ CREATE TABLE appointments (
   booking_channel VARCHAR(10), visit_type VARCHAR(12), reminder_sent VARCHAR(3), prior_no_shows INT,
   status VARCHAR(10), lead_days INT, no_show INT,
   FOREIGN KEY (clinic_id) REFERENCES clinics(clinic_id));
--- HOW TO RUN (in this order):
--- 1) run the DROP and CREATE TABLE lines below
--- 2) run load_data.sql (8 clinic INSERTs, then 990 appointment INSERTs)
--- 3) run everything from TASK 2.1 downwards
+
   -- TASK 2.1
 SELECT (SELECT COUNT(*) FROM clinics) AS clinics,COUNT(*) AS appointments,SUM(no_show) AS no_shows
 FROM appointments;
