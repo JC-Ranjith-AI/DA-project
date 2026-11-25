@@ -17,7 +17,8 @@ CREATE TABLE appointments (
 SELECT (SELECT COUNT(*) FROM clinics) AS clinics,COUNT(*) AS appointments,SUM(no_show) AS no_shows
 FROM appointments;
 
--- duplicate insert
+-- duplicate insert (it must FAIL, because A0001 already exists)
+-- Error Code: 1062. Duplicate entry 'A0001' for key 'appointments.PRIMARY'
 INSERT INTO appointments VALUES('A0001','P1','C01','2025-01-01','2025-01-05',30,'F',5.0,500,'App','Consultation','Yes',0,'Attended',4,0);
 
 -- TASK 2.2
